@@ -1,7 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 
 function App() {
+  const [boards, setBoards] = useState([
+    "🌙 Dream Board",
+    "✈️ Travel Destinations",
+    "🎬 Favorite Movie Quotes"
+  ]);
+    const [newBoard, setNewBoard] = useState("");
+
+  const addBoard = () => {
+    if (newBoard !== "") {
+      setBoards([...boards, newBoard]);
+      setNewBoard("");
+    }
+  };
+
+  const deleteBoard = (index) => {
+    const updatedBoards = boards.filter((board, i) => i !== index);
+    setBoards(updatedBoards);
+  };
   return (
     <div className="app">
 
@@ -18,8 +36,10 @@ function App() {
           <input
             type="text"
             placeholder="Enter board name..."
-          />
-          <button>Add Board</button>
+            value={newBoard}
+            onChange={(e) => setNewBoard(e.target.value)}
+            />
+            <button onClick={addBoard}>Add Board</button>
         </div>
 
         <h2>My Boards</h2>
@@ -27,17 +47,12 @@ function App() {
         {/* Board Grid */}
         <div className="board-grid">
 
-          <div className="board-card">
-            <h3>🌙 Dream Board</h3>
-          </div>
-
-          <div className="board-card">
-            <h3>✈️ Travel Destinations</h3>
-          </div>
-
-          <div className="board-card">
-            <h3>🎬 Favorite Movie Quotes</h3>
-          </div>
+          {boards.map((board, index) => (
+          <div className="board-card" key={index}>
+         <h3>{board}</h3>
+         <button onClick={() => deleteBoard(index)}>Delete</button>
+         </div>
+          ))}
 
         </div>
       </div>
