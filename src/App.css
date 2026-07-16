@@ -1,5 +1,1 @@
-cat src/App.css
-git add .
-git commit -m "added navbar, board grid and input form"
-git push origin branch-layout
-git log --oneline
+git checkout main
